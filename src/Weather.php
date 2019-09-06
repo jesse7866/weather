@@ -15,7 +15,7 @@ class Weather
      * Weather constructor.
      * @param string $key
      */
-    public function __construct(string $key)
+    public function __construct($key)
     {
         $this->key = $key;
     }
@@ -25,7 +25,7 @@ class Weather
         return new Client($this->guzzleOptions);
     }
 
-    public function setGuzzleOptions(array $options)
+    public function setGuzzleOptions($options)
     {
         $this->guzzleOptions = $options;
     }
