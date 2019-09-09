@@ -3,6 +3,7 @@
 基于 [高德开发平台](https://lbs.amap.com/dev/id/newuser) 的 PHP 天气信息组件。
 
 [![Build Status](https://travis-ci.org/jesse7866/weather.svg?branch=master)](https://travis-ci.org/jesse7866/weather)
+![StyleCI build status](https://github.styleci.io/repos/206710094/shield)
 
 ## 安装
 
