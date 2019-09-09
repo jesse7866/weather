@@ -49,7 +49,7 @@ class WeatherTest extends TestCase
         $w = \Mockery::mock(Weather::class, ['mock-key'])->makePartial();
         $w->allows()->getHttpClient()->andReturn($client);
 
-        $this->assertSame('<hello>content</hello>', $w->getWeather('深圳', 'all', 'xml'));
+        $this->assertSame('<hello>content</hello>', $w->getWeather('深圳', 'forecast', 'xml'));
     }
 
     public function testGetHttpClient()
@@ -75,7 +75,7 @@ class WeatherTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
 
-        $this->expectExceptionMessage('Invalid type value(base/all): foo');
+        $this->expectExceptionMessage('Invalid type value(live/forecast): foo');
 
         $w->getWeather('深圳', 'foo');
 
@@ -90,7 +90,7 @@ class WeatherTest extends TestCase
 
         $this->expectExceptionMessage('Invalid response format: array');
 
-        $w->getWeather('深圳', 'base', 'array');
+        $w->getWeather('深圳', 'live', 'array');
 
         $this->fail('Failed to assert getWeather throw exception with invalid argument.');
     }
@@ -111,5 +111,20 @@ class WeatherTest extends TestCase
         $w->getWeather('深圳');
     }
 
+    public function testGetLiveWeather()
+    {
+        $w = \Mockery::mock(Weather::class, ['mock-key'])->makePartial();
+        $w->expects()->getWeather('深圳', 'live', 'json')->andReturn(['success' => true]);
+
+        $this->assertSame(['success' => true], $w->getLiveWeather('深圳'));
+    }
+
+    public function testGetForecastsWeather()
+    {
+        $w = \Mockery::mock(Weather::class, ['mock-key'])->makePartial();
+        $w->expects()->getWeather('深圳', 'forecast', 'json')->andReturn(['success' => true]);
+
+        $this->assertSame(['success' => true], $w->getForecastsWeather('深圳'));
+    }
 
 }
