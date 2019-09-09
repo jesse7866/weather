@@ -9,10 +9,12 @@ use Jesse\Weather\Exceptions\InvalidArgumentException;
 class Weather
 {
     protected $key;
+
     protected $guzzleOptions = [];
 
     /**
      * Weather constructor.
+     *
      * @param string $key
      */
     public function __construct($key)
@@ -33,7 +35,9 @@ class Weather
     /**
      * @param $city
      * @param string $format
+     *
      * @return mixed|string
+     *
      * @throws HttpException
      * @throws InvalidArgumentException
      */
@@ -45,7 +49,9 @@ class Weather
     /**
      * @param $city
      * @param string $format
+     *
      * @return mixed|string
+     *
      * @throws HttpException
      * @throws InvalidArgumentException
      */
@@ -58,7 +64,9 @@ class Weather
      * @param string $city
      * @param string $type
      * @param string $format
+     *
      * @return mixed|string
+     *
      * @throws HttpException
      * @throws InvalidArgumentException
      */
@@ -68,15 +76,15 @@ class Weather
 
         $types = [
             'live' => 'base',
-            'forecast' => 'all'
+            'forecast' => 'all',
         ];
 
         if (!in_array(strtolower($format), ['xml', 'json'])) {
-            throw new InvalidArgumentException('Invalid response format: ' . $format);
+            throw new InvalidArgumentException('Invalid response format: '.$format);
         }
 
         if (!array_key_exists(strtolower($type), $types)) {
-            throw new InvalidArgumentException('Invalid type value(live/forecast): ' . $type);
+            throw new InvalidArgumentException('Invalid type value(live/forecast): '.$type);
         }
 
         $query = array_filter([
@@ -88,7 +96,7 @@ class Weather
 
         try {
             $response = $this->getHttpClient()->get($url, [
-                'query' => $query
+                'query' => $query,
             ])->getBody()->getContents();
 
             return 'json' === $format ? json_decode($response, true) : $response;
@@ -96,6 +104,4 @@ class Weather
             throw new HttpException($e->getMessage(), $e->getCode(), $e);
         }
     }
-
-
 }

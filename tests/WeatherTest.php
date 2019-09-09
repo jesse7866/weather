@@ -24,8 +24,8 @@ class WeatherTest extends TestCase
                 'key' => 'mock-key',
                 'city' => '深圳',
                 'output' => 'json',
-                'extensions' => 'base'
-            ]
+                'extensions' => 'base',
+            ],
         ])->andReturn($response);
 
         $w = \Mockery::mock(Weather::class, ['mock-key'])->makePartial();
@@ -42,8 +42,8 @@ class WeatherTest extends TestCase
                 'key' => 'mock-key',
                 'city' => '深圳',
                 'output' => 'xml',
-                'extensions' => 'all'
-            ]
+                'extensions' => 'all',
+            ],
         ])->andReturn($response);
 
         $w = \Mockery::mock(Weather::class, ['mock-key'])->makePartial();
@@ -126,5 +126,4 @@ class WeatherTest extends TestCase
 
         $this->assertSame(['success' => true], $w->getForecastsWeather('深圳'));
     }
-
 }
